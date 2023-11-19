@@ -13,7 +13,7 @@ include '../config/reuploadAcc.php';
 include '../config/security.php';
 include '../config/topArtists.php';
 
-$cbtn = '<button style="position:absolute;right:20px;top:20px" id="buttondrop" onclick="closepopup()">close</button>';
+$cbtn = '<button class="Close_Button" id="buttondrop" onclick="Closepopup()">Close</button>';
 
 $gdpsreq = '?username='.$_GET['username'].'&password='.$_GET['password'];
 
@@ -24,10 +24,18 @@ $lastid4 = 1;
 $lastid5 = 1;
 
 ?>
+  
 <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=devIce-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Helper panel</title>
 </head>
+
+<body>
 <script>
     function teleport() {
         location.href = './';
@@ -42,7 +50,7 @@ $lastid5 = 1;
     function show() {
         document.getElementById("controlp").style.display = "block";
         document.getElementById("controlb").style.display = "none";
-        document.getElementById("controlm").style.marginLeft = "240px";
+        document.getElementById("controlm").style.marginLeft = "15em";
     }
 
     function drop() {
@@ -1193,7 +1201,7 @@ function stopSound(sid) {
     audioCh.textContent = 'Play';
 }
 
-    function closepopup() {
+    function Closepopup() {
         document.getElementById('editacc').style.display = 'none';
         document.getElementById('dellvl').style.display = 'none';
         document.getElementById('ratelvl').style.display = 'none';
@@ -1221,53 +1229,14 @@ function stopSound(sid) {
 
 </script>
 <style>
-body{width:100vw
-    ;height:100vh
-    ;max-width:100vw
-    ;max-height:100vh
-    ;margin:0
-    ;font-family: Arial}
-.lift{padding:4px
-    ;margin:4px}
-.lifk{height:90vh
-    ;width:100%}
-.lifd{display:none}
-.jopup{
-    width:300px
-    ;height:140px
-    ;padding:80px 50px
-    ;background-color:#f1f1f1
-    ;position:absolute
-    ;top:50%
-    ;left:50%
-    ;transform:translate(-50%,-50%)
-    ;border:1px solid #ccc
-    ;display:none
-    ;z-index:10000
-}
-.empt{background-color:rgba(0,0,0,0)
-    ;border:none
-    ;font-size:16px
-}
-.empp{background-color:rgba(0,0,0,0)
-    ;border:none
-    ;border:solid black
-    ;border-width:0
-    ;border-left-width:2px
-    ;font-size:16px
-}
-.jopu{position:absolute
-;top:0
-;left:50%
-;transform:translate(-50%,-50%)}
 </style>
 
-<button onclick="show()" style="display:none;position:fixed;z-index:9999" id="controlb">show</button>
+<button onclick="show()" id="controlb">Show panel</button>
 
-<div id="controlp" style="height:100vh;width:220px;padding:0 10px;background-color:#ddd;position:fixed;top:0;border:solid black;border-width:0;border-right-width:2px">
+<div id="controlp">
     <div>
         <h1>Helper panel</h1>
-        <button onclick="hide()">hide</button>
+        <button onclick="hide()" class="pbutton">Hide panel</button>
         <div class="lift">
             <button class="empp" onclick="connpgp()">Edit connection.php</button>
         </div>
@@ -1301,23 +1270,23 @@ body{width:100vw
         <div class="lift">
             <button class="empt" onclick="mysqlsong()">Songs management</button>
         </div><br><br>
-        <div>
-            <button class="empt" onclick="about()" style="position:fixed;left:18px">About</button>
-            <button class="empt" onclick="teleport()" style="position:fixed;left:90px">Logout</button>
+        <div class="lift">
+            <button class="empt" onclick="about()" style="position:absolute;left:18px">About</button>
+            <button class="empt" onclick="teleport()" style="position:absolute;left:90px">Logout</button>
         </div>
     </div>
 </div>
 
-<div id="controlm" style="margin-left:240px;padding-left:10px;position:absolute;top:0;max-height:100vh">
+<div id="controlm" style="margin-left:15em;position:absolute;top:0;max-height:100vh">
     
     <h1>Leiborist</h1>
     <div id="connphp" class="lifk">
-        <h2>connection.php</h2>
-        <label>Database user: </label><input type="text" id="dbuser" value="<?php echo $username?>"><br><br>
-        <label>Database password: </label><input type="text" id="dbpass" value="<?php echo $password?>"><br><br>
+        <h2>Edit connection.php</h2>
+        <label>Database user: </label><input type="text" id="dbuser" value="<?php echo $username?>"><br>
+        <label>Database password: </label><input type="password" id="dbpass" value="<?php echo $password?>"><br>
         <label>Database name: </label><input type="text" id="dbname" value="<?php echo $dbname?>"><br><br>
         <button onclick="sendconnpgp()">Set values</button>
-        <p>DO NOT EDIT VALUES UNLESS YOU KNOW WHAT YOU ARE DOING</p>
+        <p><strong>WARNING: </strong>DO NOT EDIT THESE VALUES UNLESS YOU KNOW WHAT YOU'RE DOING</p>
     </div>
     <div id="dailyphp" class="lifd">
         <h2>dailyChests.php</h2>
@@ -1330,13 +1299,13 @@ body{width:100vw
             <label>Min keys count: </label><br><input type="text" id="chest1minKeys" value="<?php echo $chest1minKeys?>"><br><br>
             <label>Max keys count: </label><br><input type="text" id="chest1maxKeys" value="<?php echo $chest1maxKeys?>"><br><br>
             <label>Chest wait time (in seconds): </label><br><input type="text" id="chest1wait" value="<?php echo $chest1wait?>"><br><br>
-            <label>Items:</label><br>
-            <label>fire shards:</label><input type="checkbox" id="chest11"<?php if(in_array(1, $chest1items))echo' checked'?>><br>
-            <label>ice shards:</label><input type="checkbox" id="chest12"<?php if(in_array(2, $chest1items))echo' checked'?>><br>
-            <label>poison shards:</label><input type="checkbox" id="chest13"<?php if(in_array(3, $chest1items))echo' checked'?>><br>
-            <label>shadow shards:</label><input type="checkbox" id="chest14"<?php if(in_array(4, $chest1items))echo' checked'?>><br>
-            <label>lava shards:</label><input type="checkbox" id="chest15"<?php if(in_array(5, $chest1items))echo' checked'?>><br>
-            <label>keys:</label><input type="checkbox" id="chest16"<?php if(in_array(6, $chest1items))echo' checked'?>><br>
+            <label><strong>Items</strong></label><br><br>
+            <label>Fire Shards:</label><input type="checkbox" id="chest11"<?php if(in_array(1, $chest1items))echo' checked'?>><br>
+            <label>Ice Shards:</label><input type="checkbox" id="chest12"<?php if(in_array(2, $chest1items))echo' checked'?>><br>
+            <label>Poison Shards:</label><input type="checkbox" id="chest13"<?php if(in_array(3, $chest1items))echo' checked'?>><br>
+            <label>Shadow Shards:</label><input type="checkbox" id="chest14"<?php if(in_array(4, $chest1items))echo' checked'?>><br>
+            <label>Lava Shards:</label><input type="checkbox" id="chest15"<?php if(in_array(5, $chest1items))echo' checked'?>><br>
+            <label>Keys:</label><input type="checkbox" id="chest16"<?php if(in_array(6, $chest1items))echo' checked'?>><br>
         </div>
         <div style="display:inline-block;padding-right:12px">
             <h2 style="margin:0;padding:16px 0">Big chest</h2>
@@ -1347,15 +1316,15 @@ body{width:100vw
             <label>Min keys count: </label><br><input type="text" id="chest2minKeys" value="<?php echo $chest2minKeys?>"><br><br>
             <label>Max keys count: </label><br><input type="text" id="chest2maxKeys" value="<?php echo $chest2maxKeys?>"><br><br>
             <label>Chest wait time (in seconds): </label><br><input type="text" id="chest2wait" value="<?php echo $chest2wait?>"><br><br>
-            <label>Items:</label><br>
-            <label>fire shards:</label><input type="checkbox" id="chest21"<?php if(in_array(1, $chest2items))echo' checked'?>><br>
-            <label>ice shards:</label><input type="checkbox" id="chest22"<?php if(in_array(2, $chest2items))echo' checked'?>><br>
-            <label>poison shards:</label><input type="checkbox" id="chest23"<?php if(in_array(3, $chest2items))echo' checked'?>><br>
-            <label>shadow shards:</label><input type="checkbox" id="chest24"<?php if(in_array(4, $chest2items))echo' checked'?>><br>
-            <label>lava shards:</label><input type="checkbox" id="chest25"<?php if(in_array(5, $chest2items))echo' checked'?>><br>
-            <label>keys:</label><input type="checkbox" id="chest26"<?php if(in_array(6, $chest2items))echo' checked'?>><br>
+            <label><strong>Items</strong></label><br><br>
+            <label>Fire Shards:</label><input type="checkbox" id="chest21"<?php if(in_array(1, $chest2items))echo' checked'?>><br>
+            <label>Ice Shards:</label><input type="checkbox" id="chest22"<?php if(in_array(2, $chest2items))echo' checked'?>><br>
+            <label>Poison Shards:</label><input type="checkbox" id="chest23"<?php if(in_array(3, $chest2items))echo' checked'?>><br>
+            <label>Shadow Shards:</label><input type="checkbox" id="chest24"<?php if(in_array(4, $chest2items))echo' checked'?>><br>
+            <label>Lava Shards:</label><input type="checkbox" id="chest25"<?php if(in_array(5, $chest2items))echo' checked'?>><br>
+            <label>Keys:</label><input type="checkbox" id="chest26"<?php if(in_array(6, $chest2items))echo' checked'?>><br>
         </div>
-        <br><button onclick="senddailypgp()">Set values</button>
+        <br><br><button onclick="senddailypgp()">Set values</button>
     </div>
     <div id="secuphp" class="lifd">
         <h2>security.php</h2>
@@ -1365,7 +1334,7 @@ body{width:100vw
         <label>Autoactivate accounts: </label><input type="checkbox" id="autoacc"<?php if($preactivateAccounts === true)echo' checked'?>><br><br>
         <label>Enable hCaptcha: </label><input type="checkbox" id="captcha"<?php if($enableCaptcha === true)echo' checked'?>><br><br>
 
-        <label>hCaptcha siteKey: </label><input type="text" id="sitekey" value="<?php echo $hCaptchaKey?>"><br><br>
+        <label>hCaptcha siteKey: </label><input type="text" id="sitekey" value="<?php echo $hCaptchaKey?>"><br>
         <label>hCaptcha secretKey: </label><input type="text" id="secretkey" value="<?php echo $hCaptchaSecret?>"><br><br>
         <button onclick="sendsecupgp()">Set values</button>
     </div>
@@ -1608,7 +1577,7 @@ echo '<button onclick="songpre()">Add song</button>';
 ?>
     </div>
     <div id="mysqlques" class="lifd">
-        <h2>Gauntlets management</h2><?php
+        <h2>Quests management</h2><?php
 $result = $db->query('SELECT * FROM `quests`');
 $data = $result->fetchAll(PDO::FETCH_OBJ);
 
@@ -2045,8 +2014,11 @@ echo '<button onclick="quespre()">Add quest</button>';
 
 <div align="center" id="about" class="jopup">
     <h2 class="jopu" style="width:300px">About Helper Panel</h2>
-    <button style="position:absolute;right:20px;top:20px" id="buttondrop" onclick="unabout()">close</button>
-    <p>GMDps control panel ver 0.91.0.0</p>
-    <p>Created by MIOBOMB (100% of code!)</p>
+    <button style="position:absolute;right:20px;top:20px" id="buttondrop" onclick="unabout()">Close</button>
+    <p>GMDps control panel ver 0.92.0.0</p>
+    <p>Created by MIOBOMB (100% of code!)<br>CSS/styles by stysan</p>
     <p>Published by GDPS Helper</p>
 </div>
+
+</body>
+</html>
