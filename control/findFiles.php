@@ -3,7 +3,7 @@
 $currentDirectory = $_GET['dir'];
 
 if (strpos($_GET['dir'], '../..') == true) {
-    exit('Acces denied');
+    exit('Access denied');
 }
 
 echo '<tr><th>File</th><th>Size</th></tr>';
@@ -13,15 +13,15 @@ if (is_dir($currentDirectory)) {
 
     foreach ($files as $file) {
         if (is_dir($file)) {
-            echo '<tr><td><button style="background-color:#555555;color:#eeeeee" onclick=recent("'.$file.'")>'.basename($file).'</button></td>
-            <td></td></tr>';
+            echo '<tr><td><button class="folderfile" onclick=recent("'.$file.'")>'.basename($file).'</button></td>
+            <td>Folder</td></tr>';
         }
     }
 
     foreach ($files as $file) {
         if (!is_dir($file)) {
-            echo '<tr><td><button style="background-color:#eeeeee;color:#555555" onclick=opel("'.$file.'")>'.basename($file).'</button></td>
-            <td>'.filesize($file).'</td></tr>';
+            echo '<tr><td><button class="filefile" onclick=opel("'.$file.'")>'.basename($file).'</button></td>
+            <td>'.filesize($file).' bytes</td></tr>';
         }
     }
 

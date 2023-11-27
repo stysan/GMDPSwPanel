@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <?php require_once '!chkpass.php';
 
 if (!isset($_GET['username']) && !isset($_GET['password']))
@@ -60,14 +62,18 @@ function opel(dir) {
 }
 
     </script>
+    <title>File Manager</title>
 </head>
-    <button onclick="location.href='./control.php<?php echo'?username='.$_GET['username'].'&password='.$_GET['password']?>'">Go to control panel</button>
-    <div style="height:32px">
+
+<body class="filemanager xscroll">
+    <button onclick="location.href='./control.php<?php echo'?username='.$_GET['username'].'&password='.$_GET['password']?>'">Back to control panel</button>
+    <div class="directory">
         <p id="pos">..</p>
     </div>
-    <button id="back" onclick="recent('..')">Main folder</button><br>
-    <button id="drop" onclick="drop('..')">go up</button><br>
-<div align="left">
+    <button id="back" onclick="recent('..')">Main folder</button>
+    <button id="drop" onclick="drop('..')">Go up</button><br>
+    <link rel="stylesheet" href="style.css">
+<div align="left" class="filemgr">
     <table>
         <tbody id="place">
             <tr>
@@ -78,3 +84,5 @@ function opel(dir) {
     </table>
     <script>recent('..')</script>
 </div>
+</body>
+</html>

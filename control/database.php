@@ -1,10 +1,20 @@
-<?php require_once '!chkpass.php';
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <?php require_once '!chkpass.php';
 
 $tables = $db->query('SHOW TABLES');
 
-?><meta name="viewport" content="width=device-width, initial-scale=1">
-<style>body{margin:0}</style>
-<div style="padding:10px;position:fixed;background-color:#cccccc;z-index:9999;height:100vh">
+?>
+<div class="leftbardb">
 <button onclick='location.href = "./control.php<?php echo '?username='.$_GET['username'].'&password='.$_GET['password']?>"'>Back</button>
 <br><br>
 <?php foreach ($tables as $table) {
@@ -30,4 +40,6 @@ $tables = $db->query('SHOW TABLES');
     }
     
 </script>
-<table id="tablez" style="position:absolute;margin-left:300px"></table>
+<table id="tablez"></table>
+</body>
+</html>
