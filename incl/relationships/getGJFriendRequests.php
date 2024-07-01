@@ -5,9 +5,12 @@ require_once "../lib/exploitPatch.php";
 require_once "../lib/GJPCheck.php";
 $reqstring = "";
 $getSent = !empty($_POST["getSent"]) ? ExploitPatch::remove($_POST["getSent"]) : 0;
-if(empty($_POST["accountID"]) OR (!isset($_POST["page"]) OR !is_numeric($_POST["page"])) OR empty($_POST["gjp"])){
+
+$bcgjp = ($_POST["gameVersion"] > 21) ? $_POST["gjp2"] : $_POST["gjp"]; // Backwards Compatible GJP
+if(empty($_POST["accountID"]) OR (!isset($_POST["page"]) OR !is_numeric($_POST["page"])) OR empty($bcgjp)){
 	exit("-1");
 }
+
 $accountID = GJPCheck::getAccountIDOrDie();
 $page = ExploitPatch::number($_POST["page"]);
 $offset = $page*10;
@@ -41,11 +44,7 @@ foreach($result as &$request) {
 	$result2 = $query->fetchAll();
 	$user = $result2[0];
 	$uploadTime = date("d/m/Y G.i", $request["uploadDate"]);
-	if(is_numeric($user["extID"])){
-		$extid = $user["extID"];
-	}else{
-		$extid = 0;
-	}
+	$extid = is_numeric($user['extID']) ? $user['extID'] : 0;
 	$reqstring .= "1:".$user["userName"].":2:".$user["userID"].":9:".$user["icon"].":10:".$user["color1"].":11:".$user["color2"].":14:".$user["iconType"].":15:".$user["special"].":16:".$extid.":32:".$request["ID"].":35:".$request["comment"].":41:".$request["isNew"].":37:".$uploadTime."|";
 
 }
